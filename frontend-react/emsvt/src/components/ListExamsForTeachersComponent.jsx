@@ -9,6 +9,12 @@ class ListExamsForTeachers extends Component {
         this.state = {
             examList: []
         }
+
+        this.addExam = this.addExam.bind(this);
+    }
+
+    addExam() {
+        this.props.navigate('/create-exam');
     }
     
     componentDidMount() {
