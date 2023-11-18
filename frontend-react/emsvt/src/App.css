@@ -50,7 +50,11 @@
   justify-content: center;
 }
 
-.btn {
+#actionButtons {
+  margin-left: 10px;
+}
+
+#createExamButton {
   margin-top: 10px;
   margin-bottom: 10px;
 }

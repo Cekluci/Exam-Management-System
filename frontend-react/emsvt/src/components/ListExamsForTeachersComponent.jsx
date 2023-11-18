@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withNavigation } from './withNavigation';
+import ExamService from '../services/ExamService';
 
 class ListExamsForTeachers extends Component {
     constructor(props) {
@@ -10,13 +11,18 @@ class ListExamsForTeachers extends Component {
         }
     }
     
+    componentDidMount() {
+        ExamService.getExams().then( (res) => {
+            this.setState( { examList: res.data } );
+        });
+    }
     render() {
         return (
             <div>
                 <h2 className='text-center'>Exam List</h2>
                 <div className='row'>
                     <div className='col-auto'>
-                        <button type='button' className='btn btn-primary' onClick={ this.addExam }>Add New Exam</button>
+                        <button type='button' id='createExamButton' className='btn btn-primary' onClick={ this.addExam }>Add New Exam</button>
                     </div>
                 </div>
                 <div className='row'>
@@ -45,9 +51,9 @@ class ListExamsForTeachers extends Component {
                                         <td> {exams.examLimit} </td>
                                         <td> {exams.examFreeSpace} </td>
                                         <td>
-                                            <button className='btn btn-info'>Update</button>
-                                            <button className='btn btn-danger'>Delete</button>
-                                            <button className='btn btn-primary'>Details</button>
+                                            <button id='actionButtons' className='btn btn-info btn-sm'>Update</button>
+                                            <button id='actionButtons' className='btn btn-danger btn-sm'>Delete</button>
+                                            <button id='actionButtons' className='btn btn-primary btn-sm'>Details</button>
                                         </td>
                                     </tr>
                                 )
