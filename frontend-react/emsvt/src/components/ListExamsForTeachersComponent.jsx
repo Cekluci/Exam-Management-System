@@ -52,7 +52,7 @@ class ListExamsForTeachers extends Component {
                                     <tr key = {exams.id}>
                                         <td> {exams.examName} </td>
                                         <td> {exams.examLocation} </td>
-                                        <td> {exams.examLecturer} </td>
+                                        <td> {exams.lecturer} </td>
                                         <td> {exams.examDate} </td>
                                         <td> {exams.examLimit} </td>
                                         <td> {exams.examFreeSpace} </td>
