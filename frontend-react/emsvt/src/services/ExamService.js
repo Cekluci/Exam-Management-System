@@ -5,6 +5,10 @@ class ExamService {
     getExams() {
         return axios.get(EXAM_API_BASE_URL);
     }
+
+    addExam(exam) {
+        return axios.post(EXAM_API_BASE_URL, exam)
+    }
 }
 
 export default new ExamService()

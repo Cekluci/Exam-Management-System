@@ -15,6 +15,8 @@ import jakarta.persistence.Table;
 public class Exams {
 
     @Id
+    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     
     @Column(name="examname")
@@ -53,6 +55,10 @@ public class Exams {
 
     public Long getId() {
         return Id;
+    }
+
+    public void setId() {
+        this.Id = Id;
     }
 
     public String getExamName() {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withNavigation } from './withNavigation';
+import ExamService from '../services/ExamService';
 
 class CreateExamComponent extends Component {
     constructor(props) {
@@ -25,8 +26,12 @@ class CreateExamComponent extends Component {
 
     saveExam = (e) => {
         e.preventDefault();
-        let exam = {examName: this.state.examName, location: this.state.location, lecturer: this.state.lecturer, examDate: this.state.examDate, examLimit: this.state.examLimit, freeSpace: this.state.examLimit};
+        let exam = {examName: this.state.examName, examLocation: this.state.location, lecturer: this.state.lecturer, examDate: this.state.examDate, examLimit: this.state.examLimit, examFreeSpace: this.state.examLimit};
         console.log('exam => ' + JSON.stringify(exam));
+
+        ExamService.addExam(exam).then( res => {
+            this.props.navigate('/');
+        })
     }
 
     cancel() {
