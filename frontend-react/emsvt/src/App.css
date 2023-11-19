@@ -62,3 +62,13 @@
 .navbar-brand {
   margin-left: 10px;
 }
+
+.card {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.form-group {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
