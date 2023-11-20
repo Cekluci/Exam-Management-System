@@ -36,3 +36,14 @@ CREATE TABLE studentRegistration (
     registeredTo VARCHAR(255) NOT NULL,
     examId INT NOT NULL
 );
+
+CREATE VIEW examListView AS
+    SELECT
+        e.id,
+        e.examName,
+        e.examLocation,
+        e.lecturer,
+        e.examDate,
+        e.examLimit,
+        e.examLimit - COALESCE((SELECT COUNT(*) FROM studentregistration s WHERE s.examId = e.Id AND s.examId IS NOT NULL), 0) AS examFreeSpace
+    FROM examlist e;

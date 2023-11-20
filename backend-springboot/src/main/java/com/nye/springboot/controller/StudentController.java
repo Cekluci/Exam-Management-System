@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nye.springboot.DTO.ExamList.ExamList;
 import com.nye.springboot.exception.ResourceNotFoundException;
 import com.nye.springboot.model.StudentReg;
+import com.nye.springboot.repository.ExamRepository;
 import com.nye.springboot.repository.StudentRegRepository;
 import com.nye.springboot.services.CustomServices;
 
@@ -28,6 +29,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestController
 @RequestMapping("/api/v1/")
 public class StudentController {
+
+    private final CustomServices studentService;
+    
+    @Autowired
+    public StudentController(CustomServices studentService) {
+        this.studentService = studentService;
+    }
 
     @Autowired
     private StudentRegRepository studentRepository;
@@ -53,6 +61,13 @@ public class StudentController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
+    }
+
+    //Get count
+    @GetMapping("/students/{examId}")
+    public ResponseEntity<Long> getCountByExamId(@PathVariable Long examId) {
+        Long count = studentRepository.countExamIds(examId);
+        return ResponseEntity.ok(count);
     }
     
 }
