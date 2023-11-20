@@ -28,3 +28,10 @@ INSERT INTO examList (examName, examLocation, lecturer, examDate, examLimit, exa
 
 INSERT INTO examList (examName, examLocation, lecturer, examDate, examLimit, examFreeSpace)  
     VALUES ('Programozasi Technologiak', 'Online', 'Valyi Sandor Zoltan', '2023-11-20', 30, 30);
+
+
+CREATE TABLE studentRegistration (
+    id IDENTITY NOT NULL,
+    studentName VARCHAR(255) NOT NULL,
+    registeredTo VARCHAR(255) NOT NULL
+);
