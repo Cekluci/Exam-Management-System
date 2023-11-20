@@ -30,7 +30,7 @@ class CreateExamComponent extends Component {
         console.log('exam => ' + JSON.stringify(exam));
 
         ExamService.addExam(exam).then( res => {
-            this.props.navigate('/');
+            this.props.navigate('/examListTeachers');
         })
     }
 
