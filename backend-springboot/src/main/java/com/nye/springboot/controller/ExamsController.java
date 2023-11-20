@@ -1,10 +1,14 @@
 package com.nye.springboot.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,5 +61,16 @@ public class ExamsController {
 
         Exams updatedExam = examRepository.save(exam);
         return ResponseEntity.ok(updatedExam);
+    }
+
+    //Delete Exam
+    @DeleteMapping("/exams/{id}")
+    public ResponseEntity<Map<String, Boolean>> deleteExam(@PathVariable Long id) {
+        Exams exam = examRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Exam not exist with id: " + id));
+
+        examRepository.delete(exam);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return ResponseEntity.ok(response);
     }
 }
