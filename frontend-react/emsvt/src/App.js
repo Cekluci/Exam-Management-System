@@ -6,6 +6,7 @@ import FooterComponent from './components/FooterComponent';
 import ListExamsForTeachersComponent from './components/ListExamsForTeachersComponent';
 import CreateExamComponent from './components/CreateExamComponent';
 import UpdateExamComponent from './components/UpdateExamComponent';
+import MainpageComponent from './components/MainpageComponent';
 
 function App() {
   return (
@@ -14,7 +15,9 @@ function App() {
         <HeaderComponent />
         <div className='container'>
           <Routes>
-            <Route path = '/' exact Component={ListExamsForTeachersComponent}></Route>
+            <Route path = '/' exact Component={MainpageComponent}></Route>
+            <Route path = '/examListTeachers' exact Component={ListExamsForTeachersComponent}></Route>
+            <Route path = '/examListStudents' exact Component={ListExamsForTeachersComponent}></Route>
             <Route path = '/create-exam' exact Component={CreateExamComponent}></Route>
             <Route path = '/update-exam/:id' exact  Component={UpdateExamComponent}></Route>
           </Routes>
