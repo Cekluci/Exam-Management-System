@@ -15,9 +15,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nye.springboot.DTO.ExamList.ExamList;
 import com.nye.springboot.exception.ResourceNotFoundException;
 import com.nye.springboot.model.StudentReg;
 import com.nye.springboot.repository.StudentRegRepository;
+import com.nye.springboot.services.CustomServices;
+
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @CrossOrigin(origins = "http://localhost:3001")
 @RestController

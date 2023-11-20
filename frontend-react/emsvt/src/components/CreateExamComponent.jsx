@@ -35,7 +35,7 @@ class CreateExamComponent extends Component {
     }
 
     cancel() {
-        this.props.navigate('/');
+        this.props.navigate('/examListTeachers');
     }
 
     changeExamName = (event) => {

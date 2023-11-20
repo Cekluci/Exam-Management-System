@@ -1,5 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { withNavigation } from './withNavigation';
+import ExamService from '../services/ExamService';
+import StudentService from '../services/StudentService';
+
 
 class CreateRegistrationComponent extends Component {
 
@@ -7,11 +10,64 @@ class CreateRegistrationComponent extends Component {
         super(props);
         
         this.state = {
+            examList: [],
             studentName: '',
-            registeredTo: ''
+            registeredTo: '',
+            examId: ''
         }
+
+        this.saveReg = this.saveReg.bind(this);
+        this.cancel = this.cancel.bind(this);
+        this.changeStudentName = this.changeStudentName.bind(this);
+        this.changeExamList = this.changeExamList.bind(this);
     }
-    
+
+/*     componentDidMount() {
+        ExamService.getDistinctExams().then( (res) => {
+            this.setState( { examList: res.data });
+        });
+
+        console.log(this.state.examList);
+    } */
+
+    componentDidMount() {
+        ExamService.getDistinctExams().then( (res) => {
+            this.setState( { examList: res.data }, () => {
+                console.log(this.state.examList);
+            });
+        });
+    }
+
+    changeStudentName = (event) => {
+        this.setState( {studentName: event.target.value} );
+    }
+
+    changeExamList = (event) => {
+        const selectedExam = event.target.value;
+        const selectedExamId = this.state.examList.find(exam => exam.examName.toString() === selectedExam);
+
+        this.setState( {registeredTo: selectedExam} );
+        this.setState( {examId: selectedExamId.examId} );
+
+    }
+
+    saveReg = (e) => {
+        e.preventDefault();
+        console.log( this.state.studentName );
+        console.log( this.state.registeredTo );
+        console.log( this.state.examId );
+
+        let reg = {studentName: this.state.studentName, registeredTo: this.state.registeredTo, examId: this.state.examId};
+        console.log('reg =>' + JSON.stringify(reg));
+
+        StudentService.AddRegistration(reg).then( res => {
+            this.props.navigate('/examListStudents');
+        })
+    }
+
+    cancel() {
+        this.props.navigate('/examListStudents');
+    }
     render() {
         return (
             <div>
@@ -30,9 +86,10 @@ class CreateRegistrationComponent extends Component {
                                 <div className='col'>
                                     <div className='form-group'>
                                         <label htmlFor='examSelector'>Select Exam</label>
-                                        <select className='form-control' id='examSelector' aria-describedby='examSelectorHelp'>
-                                            <option>1</option>
-                                            <option>2</option>
+                                        <select value= { this.state.registeredTo } onChange={ this.changeExamList } className='form-control' id='examSelector' aria-describedby='examSelectorHelp'>
+                                            {this.state.examList.map((exam) => (
+                                                <option key={ exam.examId } value={ exam.examName }>{ exam.examName }</option>
+                                            ))}
                                         </select>
                                         <small id='examSelectorHelp' className='form-text text-muted'>Please select Exam from the list.</small>
                                     </div>

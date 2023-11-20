@@ -25,8 +25,10 @@ class ListRegistrationsForStudentsComponent extends Component {
         this.props.navigate('/register')
     }
 
-    deleteRegistration() {
-
+    deleteRegistration(id) {
+        StudentService.deleteRegistration(id).then( res => {
+            this.setState( {regList: this.state.regList.filter(regList => regList.id !== id)});
+        })
     }
     
     render() {

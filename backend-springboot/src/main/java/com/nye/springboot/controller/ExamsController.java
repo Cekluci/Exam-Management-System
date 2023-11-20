@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,17 +16,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nye.springboot.DTO.ExamList.ExamList;
 import com.nye.springboot.exception.ResourceNotFoundException;
 import com.nye.springboot.model.Exams;
 import com.nye.springboot.repository.ExamRepository;
+import com.nye.springboot.services.CustomServices;
 
 @CrossOrigin(origins = "http://localhost:3001")
 @RestController
 @RequestMapping("/api/v1/")
 public class ExamsController {
+
+    private final CustomServices examService;
     
     @Autowired
     private ExamRepository examRepository;
+
+    @Autowired
+    public ExamsController(CustomServices examService) {
+        this.examService = examService;
+    }
     
     //Get All Exams
     @GetMapping("/exams")
@@ -72,5 +80,12 @@ public class ExamsController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
+    }
+
+    //Get the distinct exam list
+    @GetMapping("/exams/examList")
+    public ResponseEntity<List<ExamList>> getDistinctExams() {
+        List<ExamList> distinctList = examService.getDistinctExams();
+        return ResponseEntity.ok(distinctList);
     }
 }

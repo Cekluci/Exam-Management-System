@@ -7,11 +7,11 @@ class ExamService {
     }
 
     addExam(exam) {
-        return axios.post(EXAM_API_BASE_URL, exam)
+        return axios.post(EXAM_API_BASE_URL, exam);
     }
 
     getExamById(examId) {
-        return axios.get(EXAM_API_BASE_URL + '/' + examId)
+        return axios.get(EXAM_API_BASE_URL + '/' + examId);
     }
 
     updateExam(exam, examId) {
@@ -19,7 +19,11 @@ class ExamService {
     }
 
     deleteExam(examId) {
-        return axios.delete(EXAM_API_BASE_URL + '/' + examId)
+        return axios.delete(EXAM_API_BASE_URL + '/' + examId);
+    }
+
+    getDistinctExams() {
+        return axios.get(EXAM_API_BASE_URL + '/' + "examList");
     }
 }
 

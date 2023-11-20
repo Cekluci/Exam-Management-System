@@ -7,6 +7,14 @@ class StudentService {
     getRegistrations() {
         return axios.get(EXAM_API_BASE_URL);
     }
+
+    AddRegistration(reg) {
+        return axios.post(EXAM_API_BASE_URL, reg);
+    }
+
+    deleteRegistration(id) {
+        return axios.delete(EXAM_API_BASE_URL + '/' + id);
+    }
 }
 
 export default new StudentService()
