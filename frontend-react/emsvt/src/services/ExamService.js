@@ -17,6 +17,10 @@ class ExamService {
     updateExam(exam, examId) {
         return axios.put(EXAM_API_BASE_URL + '/' + examId, exam);
     }
+
+    deleteExam(examId) {
+        return axios.delete(EXAM_API_BASE_URL + '/' + examId)
+    }
 }
 
 export default new ExamService()

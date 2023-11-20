@@ -12,6 +12,7 @@ class ListExamsForTeachers extends Component {
 
         this.addExam = this.addExam.bind(this);
         this.editExam = this.editExam.bind(this);
+        this.deleteExam = this.deleteExam.bind(this);
     }
 
     componentDidMount() {
@@ -26,6 +27,13 @@ class ListExamsForTeachers extends Component {
 
     editExam(id) {
         this.props.navigate(`/update-exam/${id}`);
+    }
+
+    deleteExam(id) {
+        ExamService.deleteExam(id).then( res => {
+            //Optimization: No need for another API call, it will refresh after the next load anyway...
+            this.setState( {examList: this.state.examList.filter(examList => examList.id !== id)});
+        });
     }
     
     render() {
@@ -64,8 +72,7 @@ class ListExamsForTeachers extends Component {
                                         <td> {exams.examFreeSpace} </td>
                                         <td>
                                             <button id='actionButtons' className='btn btn-info btn-sm' onClick={ () => this.editExam(exams.id) }>Update</button>
-                                            <button id='actionButtons' className='btn btn-danger btn-sm'>Delete</button>
-                                            <button id='actionButtons' className='btn btn-primary btn-sm'>Details</button>
+                                            <button id='actionButtons' className='btn btn-danger btn-sm' onClick={ () => this.deleteExam(exams.id) }>Delete</button>
                                         </td>
                                     </tr>
                                 )
