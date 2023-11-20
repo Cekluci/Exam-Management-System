@@ -33,5 +33,6 @@ INSERT INTO examList (examName, examLocation, lecturer, examDate, examLimit, exa
 CREATE TABLE studentRegistration (
     id IDENTITY NOT NULL,
     studentName VARCHAR(255) NOT NULL,
-    registeredTo VARCHAR(255) NOT NULL
+    registeredTo VARCHAR(255) NOT NULL,
+    examId INT NOT NULL
 );
