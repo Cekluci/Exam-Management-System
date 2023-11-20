@@ -11,17 +11,23 @@ class ListExamsForTeachers extends Component {
         }
 
         this.addExam = this.addExam.bind(this);
+        this.editExam = this.editExam.bind(this);
     }
 
-    addExam() {
-        this.props.navigate('/create-exam');
-    }
-    
     componentDidMount() {
         ExamService.getExams().then( (res) => {
             this.setState( { examList: res.data } );
         });
     }
+
+    addExam() {
+        this.props.navigate('/create-exam');
+    }
+
+    editExam(id) {
+        this.props.navigate(`/update-exam/${id}`);
+    }
+    
     render() {
         return (
             <div>
@@ -57,7 +63,7 @@ class ListExamsForTeachers extends Component {
                                         <td> {exams.examLimit} </td>
                                         <td> {exams.examFreeSpace} </td>
                                         <td>
-                                            <button id='actionButtons' className='btn btn-info btn-sm'>Update</button>
+                                            <button id='actionButtons' className='btn btn-info btn-sm' onClick={ () => this.editExam(exams.id) }>Update</button>
                                             <button id='actionButtons' className='btn btn-danger btn-sm'>Delete</button>
                                             <button id='actionButtons' className='btn btn-primary btn-sm'>Details</button>
                                         </td>

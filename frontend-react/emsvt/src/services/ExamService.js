@@ -9,6 +9,14 @@ class ExamService {
     addExam(exam) {
         return axios.post(EXAM_API_BASE_URL, exam)
     }
+
+    getExamById(examId) {
+        return axios.get(EXAM_API_BASE_URL + '/' + examId)
+    }
+
+    updateExam(exam, examId) {
+        return axios.put(EXAM_API_BASE_URL + '/' + examId, exam);
+    }
 }
 
 export default new ExamService()
