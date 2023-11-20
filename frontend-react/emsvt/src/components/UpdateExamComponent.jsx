@@ -43,12 +43,12 @@ class UpdateExamComponent extends Component {
         console.log('exam => ' + JSON.stringify(exam));
 
         ExamService.updateExam(exam, this.state.id).then( res => {
-            this.props.navigate('/');
+            this.props.navigate('/examListTeachers');
         });
     }
 
     cancel() {
-        this.props.navigate('/');
+        this.props.navigate('/examListTeachers');
     }
 
     changeExamName = (event) => {
