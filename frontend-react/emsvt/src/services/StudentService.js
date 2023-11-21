@@ -8,8 +8,8 @@ class StudentService {
         return axios.get(EXAM_API_BASE_URL);
     }
 
-    AddRegistration(reg) {
-        return axios.post(EXAM_API_BASE_URL, reg);
+    AddRegistration(id, reg) {
+        return axios.post(EXAM_API_BASE_URL + '/register/' + id , reg);
     }
 
     deleteRegistration(id) {

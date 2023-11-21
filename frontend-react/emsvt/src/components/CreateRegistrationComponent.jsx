@@ -12,8 +12,8 @@ class CreateRegistrationComponent extends Component {
         this.state = {
             examList: [],
             studentName: '',
-            registeredTo: '',
-            examId: ''
+            registeredTo: 'Analizis',
+            examId: '1'
         }
 
         this.saveReg = this.saveReg.bind(this);
@@ -60,7 +60,7 @@ class CreateRegistrationComponent extends Component {
         let reg = {studentName: this.state.studentName, registeredTo: this.state.registeredTo, examId: this.state.examId};
         console.log('reg =>' + JSON.stringify(reg));
 
-        StudentService.AddRegistration(reg).then( res => {
+        StudentService.AddRegistration(this.state.examId, reg).then( res => {
             this.props.navigate('/examListStudents');
         })
     }

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,15 +31,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/api/v1/")
 public class StudentController {
 
-    private final CustomServices studentService;
+/*     private final CustomServices studentService;
     
     @Autowired
     public StudentController(CustomServices studentService) {
         this.studentService = studentService;
-    }
+    } */
 
     @Autowired
     private StudentRegRepository studentRepository;
+
+    @Autowired
+    private CustomServices customServices;
 
     //Get All registrations
     @GetMapping("/students")
@@ -48,7 +52,7 @@ public class StudentController {
 
     //Register to an exam
     @PostMapping("/students")
-    public StudentReg AddRegistration(@RequestBody StudentReg studentReg) {
+    public StudentReg AddRegistration_old(@RequestBody StudentReg studentReg) {
         return studentRepository.save(studentReg);
     }
 
@@ -68,6 +72,17 @@ public class StudentController {
     public ResponseEntity<Long> getCountByExamId(@PathVariable Long examId) {
         Long count = studentRepository.countExamIds(examId);
         return ResponseEntity.ok(count);
+    }
+
+    @PostMapping("/students/register/{examId}")
+    public ResponseEntity<?> AddRegistration(@PathVariable Long examId, @RequestBody StudentReg studentReg) {
+        int freeSpace = customServices.getFreeSpace(examId);
+        if (freeSpace > 0) {
+            studentRepository.save(studentReg);
+            return ResponseEntity.ok().body("Exam registration was successful.");
+        } else {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Registration failed: No free spaces available.");
+        }
     }
     
 }

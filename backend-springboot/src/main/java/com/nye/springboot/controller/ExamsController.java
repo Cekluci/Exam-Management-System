@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nye.springboot.DTO.ExamList.ExamList;
 import com.nye.springboot.exception.ResourceNotFoundException;
 import com.nye.springboot.model.Exams;
+import com.nye.springboot.model.ExamsTable;
 import com.nye.springboot.repository.ExamRepository;
+import com.nye.springboot.repository.ExamTableRepository;
 import com.nye.springboot.services.CustomServices;
 
 @CrossOrigin(origins = "http://localhost:3001")
@@ -31,6 +33,9 @@ public class ExamsController {
     
     @Autowired
     private ExamRepository examRepository;
+
+    @Autowired
+    private ExamTableRepository examTableRepository;
 
     @Autowired
     public ExamsController(CustomServices examService) {
@@ -45,8 +50,8 @@ public class ExamsController {
 
     //Add Exam
     @PostMapping("/exams")
-    public Exams AddExam(@RequestBody Exams exam) {
-        return examRepository.save(exam);
+    public ExamsTable AddExam(@RequestBody ExamsTable exam) {
+        return examTableRepository.save(exam);
     }
 
     //Get Exam by ID
@@ -58,8 +63,8 @@ public class ExamsController {
 
     //Update Exam
     @PutMapping("/exams/{id}")
-    public ResponseEntity<Exams> updateExam(@PathVariable Long id, @RequestBody Exams examDetails) {
-        Exams exam = examRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Exam not exist with id: " + id));
+    public ResponseEntity<ExamsTable> updateExam(@PathVariable Long id, @RequestBody ExamsTable examDetails) {
+        ExamsTable exam = examTableRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Exam not exist with id: " + id));
         exam.setExamName(examDetails.getExamName());
         exam.setExamLocation(examDetails.getExamLocation());
         exam.setLecturer(examDetails.getLecturer());
@@ -67,16 +72,16 @@ public class ExamsController {
         exam.setExamLimit(examDetails.getExamLimit());
         exam.setExamFreeSpace(examDetails.getExamFreeSpace());
 
-        Exams updatedExam = examRepository.save(exam);
+        ExamsTable updatedExam = examTableRepository.save(exam);
         return ResponseEntity.ok(updatedExam);
     }
 
     //Delete Exam
     @DeleteMapping("/exams/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteExam(@PathVariable Long id) {
-        Exams exam = examRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Exam not exist with id: " + id));
+        ExamsTable exam = examTableRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Exam not exist with id: " + id));
 
-        examRepository.delete(exam);
+        examTableRepository.delete(exam);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
