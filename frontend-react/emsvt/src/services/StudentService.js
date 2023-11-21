@@ -9,7 +9,10 @@ class StudentService {
     }
 
     AddRegistration(id, reg) {
-        return axios.post(EXAM_API_BASE_URL + '/register/' + id , reg);
+        return axios.post(EXAM_API_BASE_URL + '/register/' + id , reg).catch(function (error) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+        })
     }
 
     deleteRegistration(id) {

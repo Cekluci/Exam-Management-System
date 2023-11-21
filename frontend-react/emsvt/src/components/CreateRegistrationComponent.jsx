@@ -13,7 +13,8 @@ class CreateRegistrationComponent extends Component {
             examList: [],
             studentName: '',
             registeredTo: 'Analizis',
-            examId: '1'
+            examId: '1',
+            errorMessage: ''
         }
 
         this.saveReg = this.saveReg.bind(this);
@@ -51,6 +52,20 @@ class CreateRegistrationComponent extends Component {
 
     }
 
+/*     saveReg = (e) => {
+        e.preventDefault();
+        console.log( this.state.studentName );
+        console.log( this.state.registeredTo );
+        console.log( this.state.examId );
+
+        let reg = {studentName: this.state.studentName, registeredTo: this.state.registeredTo, examId: this.state.examId};
+        console.log('reg =>' + JSON.stringify(reg));
+
+        StudentService.AddRegistration(this.state.examId, reg).then( res => {
+            this.props.navigate('/examListStudents');
+        });
+    } */
+
     saveReg = (e) => {
         e.preventDefault();
         console.log( this.state.studentName );
@@ -63,12 +78,24 @@ class CreateRegistrationComponent extends Component {
         StudentService.AddRegistration(this.state.examId, reg).then( res => {
             this.props.navigate('/examListStudents');
         })
+        .catch(error => {
+            if (error.response && error.response.status === 409) {
+                this.setState({
+                    errorMessage: 'No more free spaces available for this exam.'
+                });
+            } else {
+                this.setState({
+                    errorMessage: 'An error occured during the registration process. Please try again later.'
+                });
+            }
+        });
     }
 
     cancel() {
         this.props.navigate('/examListStudents');
     }
     render() {
+        const { errorMessage } = this.state;
         return (
             <div>
                 <div className='card'>
@@ -105,6 +132,7 @@ class CreateRegistrationComponent extends Component {
                                 </div>
                             </div>
                         </form>
+                        { errorMessage && <div className='error-message'>{ errorMessage }</div> }
                     </div>
                     <div className='card-footer text-muted'>
                         Last Refreshed: -
