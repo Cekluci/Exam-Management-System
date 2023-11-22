@@ -132,7 +132,7 @@ class CreateRegistrationComponent extends Component {
                                 </div>
                             </div>
                         </form>
-                        { errorMessage && <div className='error-message'>{ errorMessage }</div> }
+                        { errorMessage && <div className='alert alert-danger error-message' role='alert'>{ errorMessage }</div> }
                     </div>
                     <div className='card-footer text-muted'>
                         Last Refreshed: -

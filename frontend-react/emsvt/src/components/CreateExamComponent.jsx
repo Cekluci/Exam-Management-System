@@ -25,9 +25,37 @@ class CreateExamComponent extends Component {
     }
 
     saveExam = (e) => {
+        var form = document.getElementById('examregform');
         e.preventDefault();
+
         let exam = {examName: this.state.examName, examLocation: this.state.location, lecturer: this.state.lecturer, examDate: this.state.examDate, examLimit: this.state.examLimit, examFreeSpace: this.state.examLimit};
         console.log('exam => ' + JSON.stringify(exam));
+
+        if (exam.examName == '') {
+            alert("Fill out Exam Name.");
+            return
+        }
+
+        if (exam.examLocation == '') {
+            alert("Fill out Location.");
+            return
+        }
+
+        if (exam.lecturer == '') {
+            alert("Fill out Lecturer.");
+            return
+        }
+
+        if (exam.examDate == '') {
+            alert("Fill out Exam Date.");
+            return
+        }
+
+        if (exam.examLimit == '') {
+            alert("Fill out Exam Limit.")
+            return
+        }
+
 
         ExamService.addExam(exam).then( res => {
             this.props.navigate('/examListTeachers');
@@ -65,19 +93,19 @@ class CreateExamComponent extends Component {
                 <div className='card'>
                     <h5 className='card-header'>Add New Exam</h5>
                     <div className='card-body'>
-                        <form>
+                        <form id='examregform'>
                             <div className='row'>
                                 <div className='col'>
                                     <div className='form-group'>
                                         <label htmlFor='examNameInput'>Exam Name</label>
-                                        <input type='text' className='form-control' id='examNameInput' aria-describedby='examNameHelp' placeholder='Enter Exam Name' value={ this.state.examName } onChange={ this.changeExamName }></input>
+                                        <input type='text' className='form-control' id='examNameInput' aria-describedby='examNameHelp' placeholder='Enter Exam Name' value={ this.state.examName } onChange={ this.changeExamName } required></input>
                                         <small id='examNameHelp' className='form-text text-muted'>Please enter the name of the exam.</small>
                                     </div>
                                 </div>
                                 <div className='col'>
                                     <div className='form-group'>
                                         <label htmlFor='examLocationInput'>Location</label>
-                                        <input type='text' className='form-control' id='examLocationInput' aria-describedby='locationHelp' placeholder='Exam Location' value={ this.state.location } onChange={ this.changeLocation }></input>
+                                        <input type='text' className='form-control' id='examLocationInput' aria-describedby='locationHelp' placeholder='Exam Location' value={ this.state.location } onChange={ this.changeLocation } required></input>
                                         <small id='locationHelp' className='form-text text-muted'>Please enter the location of the exam.</small>
                                     </div>
                                 </div>
@@ -86,14 +114,14 @@ class CreateExamComponent extends Component {
                                 <div className='col'>
                                     <div className='form-group'>
                                         <label htmlFor='lecturerInput'>Lecturer</label>
-                                        <input type='text' className='form-control' id='lecturerInput' aria-describedby='lecturerHelp' placeholder='Lecturer' value={ this.state.lecturer } onChange={ this.changeLecturer }></input>
+                                        <input type='text' className='form-control' id='lecturerInput' aria-describedby='lecturerHelp' placeholder='Lecturer' value={ this.state.lecturer } onChange={ this.changeLecturer } required></input>
                                         <small id='lecturerHelp' className='form-text text-muted'>Lecturer Name</small>
                                     </div>
                                 </div>
                                 <div className='col'>
                                     <div className='form-group'>
                                         <label htmlFor='dateInput'>Date</label>
-                                        <input type='date' className='form-control' id='dateInput' value={ this.state.examDate } onChange={ this.changeDate }></input>
+                                        <input type='date' className='form-control' id='dateInput' value={ this.state.examDate } onChange={ this.changeDate } required></input>
                                     </div>
                                 </div>
                             </div>
@@ -101,7 +129,7 @@ class CreateExamComponent extends Component {
                                 <div className='col-md-6'>
                                     <div className='form-group'>
                                         <label htmlFor='examLimitInput'>Registration Limit</label>
-                                        <input type='text' className='form-control' id='examLimitInput' aria-describedby='limitHelp' placeholder='0' value={ this.state.examLimit } onChange={ this.changeExamLimit }></input>
+                                        <input type='text' className='form-control' id='examLimitInput' aria-describedby='limitHelp' placeholder='0' value={ this.state.examLimit } onChange={ this.changeExamLimit } required></input>
                                         <small id='limitHelp' className='form-text text-muted'>Set a max limit for registration.</small>
                                     </div>
                                 </div>
