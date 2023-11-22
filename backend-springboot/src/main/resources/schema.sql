@@ -1,4 +1,4 @@
-CREATE TABLE examList (
+CREATE TABLE IF NOT EXISTS examList (
     id IDENTITY NOT NULL,
     examName VARCHAR(255) NOT NULL,
     examLocation VARCHAR(255) NOT NULL,
@@ -30,14 +30,14 @@ INSERT INTO examList (examName, examLocation, lecturer, examDate, examLimit, exa
     VALUES ('Programozasi Technologiak', 'Online', 'Valyi Sandor Zoltan', '2023-11-20', 30, 30);
 
 
-CREATE TABLE studentRegistration (
+CREATE TABLE IF NOT EXISTS studentRegistration (
     id IDENTITY NOT NULL,
     studentName VARCHAR(255) NOT NULL,
     registeredTo VARCHAR(255) NOT NULL,
     examId INT NOT NULL
 );
 
-CREATE VIEW examListView AS
+CREATE VIEW IF NOT EXISTS examListView AS
     SELECT
         e.id,
         e.examName,
