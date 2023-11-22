@@ -55,6 +55,10 @@ public class ExamsTable {
         return Id;
     }
 
+    public void setId(Long Id) {
+        this.Id = Id;
+    }
+
     public String getExamName() {
         return examName;
     }

@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.util.Objects;
 
 @Entity
 @Table(name = "examlistview")
@@ -54,6 +55,10 @@ public class Exams {
 
     public Long getId() {
         return Id;
+    }
+
+    public void setId(Long Id) {
+        this.Id = Id;
     }
 
     public String getExamName() {
@@ -103,5 +108,21 @@ public class Exams {
     public void setExamFreeSpace(int examFreeSpace) {
         this.examFreeSpace = examFreeSpace;
     }
+
+    @Override
+    public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Exams exams = (Exams) o;
+    return Objects.equals(Id, exams.Id) &&
+           Objects.equals(examName, exams.examName);
+    // Include other fields that are part of equality
+}
+
+@Override
+public int hashCode() {
+    return Objects.hash(Id, examName);
+    // Include other fields that are part of the hash code
+}
 
 }
