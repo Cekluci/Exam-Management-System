@@ -22,34 +22,48 @@ import com.nye.springboot.model.Exams;
 import com.nye.springboot.model.ExamsTable;
 import com.nye.springboot.repository.ExamRepository;
 import com.nye.springboot.repository.ExamTableRepository;
-import com.nye.springboot.services.CustomServices;
+//import com.nye.springboot.services.CustomServices;
+import com.nye.springboot.services.ExamsService;
 
 @CrossOrigin(origins = "http://localhost:3001")
 @RestController
 @RequestMapping("/api/v1/")
 public class ExamsController {
 
-    private final CustomServices examService;
+    //private final CustomServices examService;
+    
+    private ExamsService examsService;
     
     @Autowired
+    public ExamsController(ExamsService examsService) {
+        this.examsService = examsService;
+    }
+    
+/*     @Autowired
     private ExamRepository examRepository;
 
     @Autowired
-    private ExamTableRepository examTableRepository;
+    private ExamTableRepository examTableRepository; */
 
-    @Autowired
+/*     @Autowired
     public ExamsController(CustomServices examService) {
         this.examService = examService;
-    }
+    } */
     
     //Get All Exams
     @GetMapping("/exams")
     public List<Exams> getAllExams() {
-        return examRepository.findAll();
+        return examsService.getAllExams();
     }
 
     //Add Exam
     @PostMapping("/exams")
+    public String AddExam(@RequestBody ExamsTable exam) {
+        examsService.createExam(exam);
+        return "Exam created successfully";
+    }
+    //Add Exam
+    /* @PostMapping("/exams")
     public ExamsTable AddExam(@RequestBody ExamsTable exam) {
         return examTableRepository.save(exam);
     }
@@ -92,5 +106,5 @@ public class ExamsController {
     public ResponseEntity<List<ExamList>> getDistinctExams() {
         List<ExamList> distinctList = examService.getDistinctExams();
         return ResponseEntity.ok(distinctList);
-    }
+    } */
 }
