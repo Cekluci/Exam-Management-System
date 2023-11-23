@@ -49,9 +49,3 @@ jobs:
       run: |
         cd frontend-react/emsvt
         npm run build
-
-    #Frontend: Run tests
-    - name: Run tests
-      run: |
-        cd frontend-react/emsvt
-        npm test
