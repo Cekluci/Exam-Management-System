@@ -43,9 +43,3 @@ jobs:
       run: |
         cd frontend-react/emsvt
         npm install
-
-    # Frontend: Build
-    - name: Build
-      run: |
-        cd frontend-react/emsvt
-        npm run build
