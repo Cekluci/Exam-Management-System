@@ -1,5 +1,7 @@
 package com.nye.springboot.model;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -70,6 +72,19 @@ public class StudentReg {
 
     public void setExamId(Integer examId) {
         this.examId = examId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StudentReg reg = (StudentReg) o;
+        return Objects.equals(Id, reg.Id) && Objects.equals(studentName, reg.studentName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(Id, studentName);
     }
 
 }

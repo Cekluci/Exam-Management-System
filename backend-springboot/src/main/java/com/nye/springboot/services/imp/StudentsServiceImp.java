@@ -1,11 +1,10 @@
 package com.nye.springboot.services.imp;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.nye.springboot.exception.ResourceNotFoundException;
+import com.nye.springboot.exception.NoFreeSpaceException;
 import com.nye.springboot.model.Exams;
 import com.nye.springboot.model.StudentReg;
 import com.nye.springboot.repository.ExamRepository;
@@ -36,7 +35,7 @@ public class StudentsServiceImp implements StudentsService {
             studentRepository.save(reg);
             return "Exam registration was successful.";
         } else {
-            return "Registration failed: No free spaces available.";
+            throw new NoFreeSpaceException();
         }
     }
 
