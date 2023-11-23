@@ -111,18 +111,15 @@ public class Exams {
 
     @Override
     public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    Exams exams = (Exams) o;
-    return Objects.equals(Id, exams.Id) &&
-           Objects.equals(examName, exams.examName);
-    // Include other fields that are part of equality
-}
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Exams exams = (Exams) o;
+        return Objects.equals(Id, exams.Id) && Objects.equals(examName, exams.examName);
+    }
 
-@Override
-public int hashCode() {
-    return Objects.hash(Id, examName);
-    // Include other fields that are part of the hash code
-}
+    @Override
+    public int hashCode() {
+        return Objects.hash(Id, examName);
+    }
 
 }

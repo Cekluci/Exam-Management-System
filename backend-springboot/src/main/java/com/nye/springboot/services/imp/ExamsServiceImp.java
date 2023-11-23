@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.nye.springboot.DTO.ExamList.ExamList;
 import com.nye.springboot.model.Exams;
 import com.nye.springboot.model.ExamsTable;
 import com.nye.springboot.repository.ExamRepository;
@@ -30,6 +31,38 @@ public class ExamsServiceImp implements ExamsService {
     public String createExam(ExamsTable exam) {
         examTableRepository.save(exam);
         return "Success.";
+    }
+
+    @Override
+    public ExamsTable getExamById(Long Id) {
+        return examTableRepository.findById(Id).get();
+    }
+
+    @Override
+    public String updateExam(Long Id, ExamsTable examDetails) {
+        ExamsTable exam = examTableRepository.findById(Id).get();
+        exam.setExamName(examDetails.getExamName());
+        exam.setExamLocation(examDetails.getExamLocation());
+        exam.setLecturer(examDetails.getLecturer());
+        exam.setExamDate(examDetails.getExamDate());
+        exam.setExamLimit(examDetails.getExamLimit());
+        exam.setExamFreeSpace(examDetails.getExamFreeSpace());
+
+        examTableRepository.save(exam);
+        return "Success.";
+    }
+
+    @Override
+    public String deleteExam(Long Id) {
+        //ExamsTable exam = examTableRepository.findById(Id).get();
+        examTableRepository.findById(Id).ifPresent(exam -> examTableRepository.delete(exam));
+        //examTableRepository.delete(exam);
+        return "Success.";
+    }
+
+    @Override
+    public List<ExamList> getDistinctExams() {
+        return examRepository.findDistinctExams(); 
     }
     
 }

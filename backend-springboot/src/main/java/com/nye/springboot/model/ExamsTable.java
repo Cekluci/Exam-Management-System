@@ -1,6 +1,8 @@
 package com.nye.springboot.model;
 
 import java.time.LocalDate;
+import java.util.Objects;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
@@ -106,5 +108,19 @@ public class ExamsTable {
     public void setExamFreeSpace(int examFreeSpace) {
         this.examFreeSpace = examFreeSpace;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ExamsTable exams = (ExamsTable) o;
+        return Objects.equals(Id, exams.Id) && Objects.equals(examName, exams.examName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(Id, examName);
+    }
+
 
 }

@@ -20,10 +20,6 @@ public class CustomServices {
         this.examRepository = examRepository;
     }
 
-    public List<ExamList> getDistinctExams() {
-        return examRepository.findDistinctExams();
-    }
-
     public int getFreeSpace(Long examId) {
         Exams exam = examRepository.findById(examId).orElseThrow(() -> new ResourceNotFoundException("Cannot get free space for this exam: " + examId));
         return exam.getExamFreeSpace();
