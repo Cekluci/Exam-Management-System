@@ -10,7 +10,6 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Collection;
@@ -21,15 +20,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.MockMvc;
 
 import com.nye.springboot.exception.NoFreeSpaceException;
 import com.nye.springboot.model.Exams;
-import com.nye.springboot.model.ExamsTable;
 import com.nye.springboot.model.StudentReg;
 import com.nye.springboot.services.imp.StudentsServiceImp;
 
@@ -38,9 +34,6 @@ import com.nye.springboot.services.imp.StudentsServiceImp;
 @ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
 public class StudentsControllerTest {
-
-    @Autowired
-    private MockMvc mockMvc;
 
     @InjectMocks
     private static StudentsServiceImp underTest;
