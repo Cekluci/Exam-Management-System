@@ -41,17 +41,17 @@ jobs:
     # Frontend: Install Dependencies
     - name: Install dependencies
       run: |
-        cd frontend-react\emsvt
+        cd frontend-react/emsvt
         npm install
 
     # Frontend: Build
     - name: Build
       run: |
-        cd frontend-react\emsvt
+        cd frontend-react/emsvt
         npm run build
 
     #Frontend: Run tests
     - name: Run tests
       run: |
-        cd frontend-react\emsvt
+        cd frontend-react/emsvt
         npm test
